@@ -136,7 +136,7 @@ class System:
         quit()
 
     def pwd(self) -> None:
-        self.stdout_buffer = f"{self.cwd}"
+        self.stdout_buffer = f"[blue]{self.cwd}[/blue]"
 
     def mkdir(self, path: str):
         path = self.__get_path(path)
@@ -164,10 +164,10 @@ class System:
     def cd(self, path: str):
         path = self.__get_path(path)
         if path not in self.fstree:
-            self.stdout_buffer = f"Abort: No such path {path}"
+            self.stdout_buffer = f"Abort: No such path [blue]{path}[/blue]"
             return
         self.cwd = path
-        self.stdout_buffer = f"Changing path to {path}"
+        self.stdout_buffer = f"Changing path to [blue]{path}[/blue]"
 
     def ls(self, path: Optional[str] = None) -> None:
         path = self.__get_path(path)
