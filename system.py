@@ -182,18 +182,20 @@ class System:
         columns = Columns(children, equal=True)
         self.stdout_buffer = columns
 
-    def rm(self, path: str) -> None:
-        path = self.__get_path(path)
+    def rm(self, fsobj: str) -> None:
+        path = self.__get_path(fsobj)
         if path is self.root:
             self.stdout_buffer = f":santa: Come on... You think Santa doesn't see you? ;) :santa:"
             return
         elif path in self.fstree:
-            path = path
+            fsobj = path
+        elif File(path.parts) in self.fstree:
+            fsobj = File(path.parts)
         else:
             self.stdout_buffer = f"Abort: No such path or file '{path}'"
             return
         disk_used_old = self.disk_used
-        tree = [node for node in nx.bfs_tree(self.fstree, path)][::-1]
+        tree = [node for node in nx.bfs_tree(self.fstree, fsobj)][::-1]
         self.stdout_buffer = []
         for node in tree:
             self.fstree.remove_edges_from([edge for edge in self.fstree.edges(node)])
