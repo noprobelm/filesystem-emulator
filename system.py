@@ -120,7 +120,7 @@ class System:
             if isinstance(v, Path):
                 tree.add(f"[blue]{v}[/blue]")
             else:
-                tree.add(f"[red]{v}[/blue]")
+                tree.add(f"[red]{v}[/red]")
         help_message = Help(
             num_files=num_files,
             num_paths=num_paths,
@@ -155,9 +155,8 @@ class System:
         if file in self.fstree:
             self.stdout_buffer = f"Abort: File [red]{file}[/red] already exists"
             return
-        elif self.disk_used + size > self.disk_available:
+        elif self.disk_used + size > self.disk_space:
             self.stdout_buffer = f"Abort: Disk full. Free at least {size - self.disk_available} bytes and try again."
-            return
         self.fstree.add_node(file, objtype=type(File), size=size)
         self.fstree.add_edge(self.cwd, file)
         self.stdout_buffer = f"New file created: [red]{file}[/red]"
@@ -190,8 +189,6 @@ class System:
             return
         elif path in self.fstree:
             path = path
-        elif File(path.parts) in self.fstree:
-            path = File(path.parts)
         else:
             self.stdout_buffer = f"Abort: No such path or file '{path}'"
             return
