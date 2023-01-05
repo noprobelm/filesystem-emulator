@@ -7,6 +7,7 @@ from rich.console import Console
 from rich.tree import Tree
 from eots_assets import Welcome, Help
 
+
 class __FileSystemObject:
     def __init__(self, parts: list) -> None:
         if not parts:
@@ -30,7 +31,7 @@ class __FileSystemObject:
     def __str__(self) -> str:
         return f"{'/'.join([''] + self.parts)}"
 
-    def __hash__(self) -> bool:
+    def __hash__(self) -> int:
         return hash((self.pointer, type(self)))
 
     def __eq__(self, other) -> bool:
