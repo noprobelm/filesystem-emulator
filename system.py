@@ -1,5 +1,5 @@
 import re
-from typing import Optional, Any
+from typing import Optional, Any, Sequence
 import networkx as nx
 import datetime
 from rich.columns import Columns
@@ -251,7 +251,7 @@ class System:
             stdout = trees[self.root]
         self.stdout_buffer = stdout
 
-    def eval(self, command, *args) -> None:
+    def eval(self, command: str, *args: Sequence[str]) -> None:
         command = getattr(self, command)
         command(*args)
         self.console.print(self.stdout_buffer)
