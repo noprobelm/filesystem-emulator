@@ -118,9 +118,9 @@ class System:
         tree = Tree(str(self.cwd), guide_style="blue")
         for u, v in self.fstree.out_edges(self.cwd):
             if isinstance(v, Path):
-                tree.add(f"[blue]{v}")
+                tree.add(f"[blue]{v}[/blue]")
             else:
-                tree.add(f"[red]{v}")
+                tree.add(f"[red]{v}[/blue]")
         help_message = Help(
             num_files=num_files,
             num_paths=num_paths,
@@ -141,23 +141,23 @@ class System:
     def mkdir(self, path: str):
         path = self.__get_path(path)
         if path in self.fstree:
-            self.stdout_buffer = f"Abort: Path {path} already exists."
+            self.stdout_buffer = f"Abort: Path [blue]{path}[/blue] already exists."
             return
 
         self.fstree.add_node(path, name=path.name, size=0, cumulative_size=0)
         self.fstree.add_edge(self.cwd, path)
-        self.stdout_buffer = f"New path created: {path}"
+        self.stdout_buffer = f"New path created: [blue]{path}[/blue]"
 
     def fallocate(self, filepath: str, size: int):
         size = int(size)
         parts = self.__get_path(filepath).parts
         file = File(parts)
         if file in self.fstree:
-            self.stdout_buffer = f"Abort: File {file} already exists"
+            self.stdout_buffer = f"Abort: File [red]{file}[/red] already exists"
             return
         self.fstree.add_node(file, objtype=type(File), size=size)
         self.fstree.add_edge(self.cwd, file)
-        self.stdout_buffer = f"New file created: {file}"
+        self.stdout_buffer = f"New file created: [red]{file}[/red]"
         self.disk_used += size
         self.disk_available -= size
 
@@ -180,7 +180,7 @@ class System:
     def rm(self, fsobj: str) -> None:
         path = self.__get_path(fsobj)
         if path is self.root:
-            self.stdout_buffer = f"Come on... You know what you're doing ;)"
+            self.stdout_buffer = f":santa: Come on... You don't want to end up on that list, do you? ;) :santa:"
             return
         elif path in self.fstree:
             fsobj = path
