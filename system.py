@@ -13,7 +13,6 @@ class __FileSystemObject:
         if not parts:
             self.path = ""
             self.name = ""
-            self.fullpath = ""
             self.parts = []
             self.pointer = tuple()
             return
@@ -24,7 +23,6 @@ class __FileSystemObject:
         elif len(parts) > 1:
             self.path = f"/{'/'.join(parts[:-1])}"
 
-        self.fullpath = f"{self.path}/{self.name}"
         self.parts = parts
         self.pointer = tuple(parts)
 
@@ -205,7 +203,7 @@ class System:
             self.fstree.remove_node(node)
             self.stdout_buffer.append(f"Removed {node}")
         self.stdout_buffer.append(
-            f"Freed {disk_used_old - self.disk_used} of space. {self.disk_available} bytes remaining."
+            f"Freed {disk_used_old - self.disk_used} bytes of space. {self.disk_available} bytes remaining."
         )
         self.stdout_buffer = "\n".join(self.stdout_buffer)
 
