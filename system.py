@@ -155,7 +155,7 @@ class System:
         if file in self.fstree:
             self.stdout_buffer = f"Abort: File [red]{file}[/red] already exists"
             return
-        if self.disk_used + size > self.disk_available:
+        elif self.disk_used + size > self.disk_available:
             self.stdout_buffer = f"Abort: Disk full. Free at least {size - self.disk_available} bytes and try again."
             return
         self.fstree.add_node(file, objtype=type(File), size=size)
@@ -176,7 +176,10 @@ class System:
         path = self.__get_path(path)
         children = []
         for _path, child in self.fstree.out_edges(path):
-            children.append(child.name)
+            if isinstance(child, Path):
+                children.append(f"[blue]{child.name}[/blue]")
+            elif isinstance(child, File):
+                children.append(f"[red]{child.name}[/red]")
         columns = Columns(children, equal=True)
         self.stdout_buffer = columns
 
