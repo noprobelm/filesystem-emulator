@@ -4,7 +4,7 @@
 Then, if you were *really* feeling in the spirit of the season, you could write an API for it. 
 
 ## Installation
-`git clone git@github.com/noprobelm/filesystem-emulator.git`
+`git clone git@github.com/noprobelm/filesystem-emulator.git && cd filesystem-emulator`
 `pip install -r requirements.txt`
 
 ## Usage
