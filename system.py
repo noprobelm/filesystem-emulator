@@ -292,7 +292,7 @@ class System:
                         self.fstree.nodes[child]["size"] += self.fstree.nodes[_child_obj]["size"]
                         self.fstree.nodes[child]["cumulative_size"] += self.fstree.nodes[_child_obj]["size"]
 
-        sizes = [self.fstree.nodes[node]['cumulative_size'] for node in self.fstree.nodes if isinstance(node, Path)]
+        sizes = [self.fstree.nodes[node]["cumulative_size"] for node in self.fstree.nodes if isinstance(node, Path)]
         return sum(list(filter(lambda s: s < 100000, sizes)))
 
     def _solve_part_2(self):
@@ -300,7 +300,7 @@ class System:
         # install a new package.
         minimum_space = 30000000
         disk_needed = minimum_space - self.disk_available
-        sizes = [self.fstree.nodes[node]['cumulative_size'] for node in self.fstree.nodes if isinstance(node, Path)]
+        sizes = [self.fstree.nodes[node]["cumulative_size"] for node in self.fstree.nodes if isinstance(node, Path)]
         sizes = list(sorted(sizes))
         for size in sizes:
             if size > disk_needed:
