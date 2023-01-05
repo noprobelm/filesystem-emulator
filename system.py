@@ -88,7 +88,6 @@ class System:
                     command = line[0]
                     args = line[1:]
                     self.eval(command, *args)
-
         self.cwd = self.root
 
     def __get_path(self, path: str) -> Path:
