@@ -186,7 +186,7 @@ class System:
     def rm(self, path: str) -> None:
         path = self.__get_path(path)
         if path is self.root:
-            self.stdout_buffer = f":santa: Come on... You don't want to end up on that list, do you? ;) :santa:"
+            self.stdout_buffer = f":santa: Come on... You think Santa doesn't see you? ;) :santa:"
             return
         elif path in self.fstree:
             path = path
