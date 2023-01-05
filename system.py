@@ -155,6 +155,9 @@ class System:
         if file in self.fstree:
             self.stdout_buffer = f"Abort: File [red]{file}[/red] already exists"
             return
+        if self.disk_used + size > self.disk_available:
+            self.stdout_buffer = f"Abort: Disk full. Free at least {size - self.disk_available} bytes and try again."
+            return
         self.fstree.add_node(file, objtype=type(File), size=size)
         self.fstree.add_edge(self.cwd, file)
         self.stdout_buffer = f"New file created: [red]{file}[/red]"
