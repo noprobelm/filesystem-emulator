@@ -1,5 +1,5 @@
 import re
-from typing import Optional
+from typing import Optional, Any
 import networkx as nx
 import datetime
 from rich.columns import Columns
@@ -32,7 +32,7 @@ class __FileSystemObject:
     def __hash__(self) -> int:
         return hash((self.pointer, type(self)))
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: Any) -> bool:
         if hash(self) == hash(other):
             return True
         else:
