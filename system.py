@@ -1,14 +1,11 @@
-from rich.columns import Columns
-from rich.pretty import pprint
-from rich.console import Console
-from rich.tree import Tree
-from eots_assets import Welcome, Help
 import re
 from typing import Optional
 import networkx as nx
-
 import datetime
-
+from rich.columns import Columns
+from rich.console import Console
+from rich.tree import Tree
+from eots_assets import Welcome, Help
 
 class __FileSystemObject:
     def __init__(self, parts: list) -> None:
