@@ -127,7 +127,7 @@ class System:
             largest_filesize=largest_size,
             largest_filepath=largest_filepath,
             largest_filename=largest_filename,
-            cwd=self.cwd,
+            cwd=str(self.cwd),
             cwd_tree=tree,
         )
         self.stdout_buffer = help_message
