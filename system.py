@@ -33,10 +33,7 @@ class __FileSystemObject:
         return hash((self.pointer, type(self)))
 
     def __eq__(self, other: Any) -> bool:
-        if hash(self) == hash(other):
-            return True
-        else:
-            return False
+        return hash(self) == hash(other)
 
     @classmethod
     def from_string(cls, fullpath: str) -> "__FileSystemObject":
