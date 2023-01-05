@@ -152,7 +152,7 @@ class System:
             self.stdout_buffer = f"Abort: Path {path} already exists."
             return
 
-        self.fstree.add_node(path, objtype=type(Path), name=path.name, size=0, cumulative_size=0)
+        self.fstree.add_node(path, name=path.name, size=0, cumulative_size=0)
         self.fstree.add_edge(self.cwd, path)
         self.stdout_buffer = f"New path created: {path}"
 
