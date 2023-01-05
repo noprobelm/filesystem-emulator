@@ -281,6 +281,34 @@ class System:
                 self.console.print_exception(show_locals=True)
                 self.console.print("[red]Uh oh! You found a bug! I'm sure the elves will get right on it... :santa:")
 
+    def _solve_part_1(self):
+        # Find all directories whose total sizes are < 100000, then find the sum of the total size of these directories.
+        # This code is pulled directly from the 'du' method and adapted to solve the puzzle. I'd rather not write full
+        # functions for stdout redirections, grep, regex...
+        children = [child for child in nx.bfs_tree(self.fstree, self.root)][::-1]
+        for child in children:
+            if isinstance(child, Path):
+                for _child, _child_obj in self.fstree.out_edges(child):
+                    if isinstance(_child_obj, Path):
+                        self.fstree.nodes[child]["cumulative_size"] += self.fstree.nodes[_child_obj]["cumulative_size"]
+                    elif isinstance(_child_obj, File):
+                        self.fstree.nodes[child]["size"] += self.fstree.nodes[_child_obj]["size"]
+                        self.fstree.nodes[child]["cumulative_size"] += self.fstree.nodes[_child_obj]["size"]
+
+        sizes = [self.fstree.nodes[node]['cumulative_size'] for node in self.fstree.nodes if isinstance(node, Path)]
+        return sum(list(filter(lambda s: s < 100000, sizes)))
+
+    def _solve_part_2(self):
+        # Determine the smallest path which, if deleted, would free up the 30000000 available disk space required to
+        # install a new package.
+        minimum_space = 30000000
+        disk_needed = minimum_space - self.disk_available
+        sizes = [self.fstree.nodes[node]['cumulative_size'] for node in self.fstree.nodes if isinstance(node, Path)]
+        sizes = list(sorted(sizes))
+        for size in sizes:
+            if size > disk_needed:
+                return size
+
 
 if __name__ == "__main__":
     sys = System(file="stdin-sample.txt")
