@@ -117,8 +117,8 @@ class Help:
         about_message = Align(about_message, "center", width=console.width)
         commands = Table("Command", "Description", style="blue", show_edge=False)
 
-        commands.add_row("fallocate \[filepath\] \[file size\]", "Create a new file at path")
-        commands.add_row("mkdir \[path\]", "Create a new directory at path")
+        commands.add_row("fallocate", "Create a new file at path")
+        commands.add_row("mkdir", "Create a new directory at path")
         commands.add_row("ls", "List the contents of the current working directory")
         commands.add_row("cd", "Change the current directory")
         commands.add_row("pwd", "List the name of the current directory")
