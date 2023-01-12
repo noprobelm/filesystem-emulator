@@ -9,12 +9,6 @@ from rich.tree import Tree
 from eots_assets import Welcome, Help
 
 
-@dataclass(order=False, frozen=True)
-class __FileSystemObject:
-    path: str
-    name: str
-    parts: tuple
-
 class __FileSystemObject:
     def __init__(self, parts: list) -> None:
         if not parts:
